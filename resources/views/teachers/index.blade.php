@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Daftar Guru</div>
+                <div class="card-header">
+                Daftar Guru
+                <a class="btn-sm btn-primary float-right" href="{{ route('teachers.create') }}" role="button">Tambah</a>
+                </div>
 
                 <div class="card-body">
                 {{ $teachers->links() }}
@@ -26,7 +29,19 @@
                             <td>{{ $teacher->name }}</td>
                             <td>{{ $teacher->address }}</td>
                             <td>{{ $teacher->old }}</td>
-                            <td>@mdo</td>
+                            <td>
+                                <a class="btn-sm btn-success" href="{{ route('teachers.edit', $teacher->id) }}" role="button">Edit</a>
+                                <a class="btn-sm btn-danger" href="{{ route('teachers.destroy', $teacher->id) }}" role="button"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('destroy-teacher-{{$teacher->id}}').submit();">
+                                    Hapus
+                                </a>
+
+                                <form id="destroy-teacher-{{$teacher->id}}" action="{{ route('teachers.destroy', $teacher->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
                         </tr>
                         @endforeach                        
                     </tbody>

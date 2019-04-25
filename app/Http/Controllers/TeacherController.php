@@ -26,7 +26,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        return view('teachers.new');
     }
 
     /**
@@ -37,7 +37,13 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $teacher = new Teacher;
+        $teacher->name = $request->input('name');
+        $teacher->address = $request->input('address');
+        $teacher->old = $request->input('old');
+        $teacher->save();
+
+        return redirect('/teachers');
     }
 
     /**
@@ -59,7 +65,7 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        //
+        return view('teachers.edit', [ 'teacher' => $teacher ]);
     }
 
     /**
@@ -71,7 +77,12 @@ class TeacherController extends Controller
      */
     public function update(Request $request, Teacher $teacher)
     {
-        //
+        $teacher->name = $request->input('name');
+        $teacher->address = $request->input('address');
+        $teacher->old = $request->input('old');
+        $teacher->save();
+
+        return redirect('/teachers');
     }
 
     /**
@@ -82,6 +93,8 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        $teacher->delete();
+
+        return redirect('/teachers');
     }
 }
